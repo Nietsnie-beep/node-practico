@@ -4,7 +4,7 @@ const db = {
     ],
 }
 
-const list = (table) => {
+const list = async(table) => {
     return db[table];
 }
 

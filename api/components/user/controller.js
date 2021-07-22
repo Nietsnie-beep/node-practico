@@ -7,7 +7,7 @@ module.exports = function(injectedStore) {
         store = require('../../../store/dummy')
     }
     
-    const list = () =>{
+    const list = async() =>{
         return store.list(TABLA)
     }
 
