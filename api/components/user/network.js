@@ -1,19 +1,72 @@
 const express = require('express');
+const { upsert } = require('../../../store/dummy');
 
+const secure = require('./secure');
 const response = require('../../network/response');
 const Controller = require('./index')
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    const lista = Controller.list()
-    .then(()) => {};
-    response.success(req,res, lista, 200 )
-});
+//routes
+router.get('/', list)
+router.post('/follow/:id', secure('follow'), follow)
+router.get('/:id/followers', secure('follow'), following)
+router.post('/', upserting)
+router.put('/', secure('update'), upserting)
+
+function list(req, res) {
+    Controller.list()
+        .then((list) => {
+            response.success(req, res, list, 200)
+        })
+        .catch((err) => {
+            response.error(req, res, err.message, 500);
+        })
+}
 
 router.get('/:id', (req, res) => {
-    const user = Controller.get(req.params.id);
-    response.success(req,res, lista, 200 );
+    Controller.get(req.params.id)
+        .then((user) => {
+            response.success(req, res, user, 200);
+        })
+        .catch((err) => {
+            response.error(req, res, err.message, 500);
+        })
 });
+
+function upserting(req, res) {
+    Controller.upsert(req.body)
+        .then((user) => {
+            response.success(req, res, user, 201);
+        })
+        .catch((err) => {
+            response.error(req, res, err.message, 500);
+        });
+
+}
+
+function follow(req, res, next) {
+    Controller.follow(req.user.id, req.params.id)
+        .then(data => {
+            response.success(req, res, data, 201);
+        })
+        .catch(next);
+}
+
+// function Getfollowers(req, res, next) {
+//     Controller.followers(req.user.id)
+//         .then(data => {
+//             response.success(req, res, data, 201);
+//         })
+//         .catch(next);
+// }
+
+function following(req, res, next) {
+    return Controller.following(req.params.id)
+        .then((data) => {
+            return response.success(req, res, data, 200 )
+        })
+        .catch(next)
+}
 
 module.exports = router;
