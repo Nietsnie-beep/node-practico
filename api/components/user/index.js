@@ -5,7 +5,7 @@ const ctrl = require('./controller')
 
 let store
 if (config.remoteDB === true){
-    store = require('../../../store/mysql');
+    store = require('../../../store/remote-mysql');
 }else{
     store = require('../../../store/mysql')
 }
