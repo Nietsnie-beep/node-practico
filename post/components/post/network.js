@@ -1,6 +1,6 @@
 const express = require('express');
 
-const response = require('../../network/response');
+const response = require('../../../api/network/response');
 
 //const controller = require('../auth/controller');
 const Controller = require('./index')

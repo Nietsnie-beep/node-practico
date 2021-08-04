@@ -1,4 +1,4 @@
-const auth = require('../../auth')
+const auth = require('../../../api/auth')
 
 module.exports = function checkAuth(action) {
     const middleware = (req, res, next) => {
