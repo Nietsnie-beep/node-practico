@@ -1,6 +1,4 @@
 const express = require('express');
-const { upsert } = require('../../../store/dummy');
-
 const secure = require('./secure');
 const response = require('../../network/response');
 const Controller = require('./index')
