@@ -11,7 +11,7 @@ module.exports = {
     },
 
     mysql:{
-        host:process.env.MYSQL_HOST || 'remotemysql.com',
+        host:process.env.MYSQL_HOST || '',
         user: process.env.MYSQL_USER || 'Ecc9rzr9Zq',
         password: process.env.MYSQL_PASS || 'oyqO82wGXO',
         database: process.env.MYSQL_DB || 'Ecc9rzr9Zq',
